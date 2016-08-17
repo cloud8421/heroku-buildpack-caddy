@@ -14,6 +14,7 @@ function download_caddy() {
 
     output_section "Fetching Caddy"
     curl -L "${caddy_package_url}" -o ${tmp_path}/$(caddy_tarball) || exit 1
+    cp ${tmp_path}/$(caddy_tarball) ${cache_path}/$(caddy_tarball)
   else
     output_section "Using cached Caddy"
   fi
