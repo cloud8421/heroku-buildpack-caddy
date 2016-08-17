@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+caddy_file_url="$1/Caddyfile"
+
+if [ -f $caddy_file_url ];
+then
+  echo "Caddy"
+  exit 0
+else
+  exit 1
+fi
