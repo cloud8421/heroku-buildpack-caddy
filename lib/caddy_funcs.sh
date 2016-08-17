@@ -13,7 +13,7 @@ function download_caddy() {
     caddy_changed=true
 
     output_section "Fetching Caddy"
-    curl -L "${caddy_package_url}" -o ${cache_path}/$(caddy_tarball) || exit 1
+    curl -L "${caddy_package_url}" -o ${tmp_path}/$(caddy_tarball) || exit 1
   else
     output_section "Using cached Caddy"
   fi
