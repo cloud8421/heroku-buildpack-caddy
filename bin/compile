@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 
-set -ve
+set -e
 
-# If this var is set to true later on,
-# then caddy will be rebuilt
-caddy_changed=false
-
-build_pack_path=$(cd $(dirname $(dirname $0)); pwd)
-
-# Ensure dirs are present
 mkdir -p $1 $2 $3
 
 BUILD_DIR=$(cd $1 && pwd)
@@ -25,13 +18,13 @@ CADDY_PATH="$TMP_PATH/caddy"
 mkdir -p $TMP_PATH $CADDY_PATH $BIN_PATH
 
 if [ -f $CADDY_PKG ]; then
-  echo "-----> Using wkhtmltopdf Debian package from cache"
+  echo "-----> Using Caddy package from cache"
 else
-  echo "-----> Downloading wkhtmltopdf Debian package"
+  echo "-----> Downloading Caddy package"
   curl -fsSL "$CADDY_URL" -o "$CADDY_PKG"
 fi
 
-echo "-----> Unpacking Debian package"
+echo "-----> Unpacking Caddy package"
 tar -zxvf "$CADDY_PKG" -C "$CADDY_PATH" "$caddy_bin"
 chmod +x "$CADDY_PATH/$caddy_bin"
 mv "$CADDY_PATH/$caddy_bin" $BIN_PATH/
