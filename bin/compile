@@ -35,5 +35,5 @@ chmod +x "$CADDY_PATH/$caddy_bin"
 mv "$CADDY_PATH/$caddy_bin" $BIN_PATH/
 rm -rf $CADDY_PATH
 
-version=($EXE_PATH --version)
+version="$($EXE_PATH --version)"
 echo "-----> Running Caddy $version"
