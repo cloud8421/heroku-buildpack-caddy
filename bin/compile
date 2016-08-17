@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ve
 
 # If this var is set to true later on,
 # then caddy will be rebuilt
