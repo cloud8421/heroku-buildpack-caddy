@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 # If this var is set to true later on,
 # then caddy will be rebuilt
 caddy_changed=false
