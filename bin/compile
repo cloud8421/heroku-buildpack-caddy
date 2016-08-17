@@ -18,6 +18,15 @@ tmp_path=$(cd $3 && pwd)
 source ${build_pack_path}/lib/misc_funcs.sh
 source ${build_pack_path}/lib/caddy_funcs.sh
 
+output_line ${build_path}
+ls ${build_path}
+
+output_line ${build_path}
+ls ${build_path}
+
+output_line ${tmp_path}
+ls ${tmp_path}
+
 load_config
 
 clean_cache
