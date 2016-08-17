@@ -36,9 +36,8 @@ function load_config() {
     output_line "Using default config from Caddy buildpack"
   fi
 
-  output_line "Will use the following versions:"
-  output_line "* Stack ${STACK}"
-  output_line "* Features ${caddy_features}"
+  output_line "Will use the following:"
+  output_line "* Features: ${caddy_features}"
 }
 
 function clean_cache() {
