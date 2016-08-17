@@ -22,7 +22,7 @@ CADDY_URL="https://caddyserver.com/download/build?os=linux&arch=amd64"
 CADDY_PKG="$CACHE_DIR/caddy.tar.gz"
 CADDY_PATH="$TMP_PATH/caddy"
 
-mkdir -p $TMP_PATH $CADDY_PATH
+mkdir -p $TMP_PATH $CADDY_PATH $BIN_PATH
 
 if [ -f $CADDY_PKG ]; then
   echo "-----> Using wkhtmltopdf Debian package from cache"
