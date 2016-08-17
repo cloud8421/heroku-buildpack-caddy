@@ -11,25 +11,28 @@ build_pack_path=$(cd $(dirname $(dirname $0)); pwd)
 # Ensure dirs are present
 mkdir -p $1 $2 $3
 
-build_path=$(cd $1 && pwd)
-cache_path=$(cd $2 && pwd)
-tmp_path=$(cd $3 && pwd)
+BUILD_DIR=$(cd $1 && pwd)
+CACHE_DIR=$(cd $2 && pwd)
+TMP_PATH="$BUILD_DIR/tmp"
+BIN_PATH="$BUILD_DIR/bin"
 
-source ${build_pack_path}/lib/misc_funcs.sh
-source ${build_pack_path}/lib/caddy_funcs.sh
+mkdir -p $TMP_PATH
 
-output_section "build_path: ${build_path}"
-ls ${build_path}
+caddy_bin="caddy"
 
-output_section "cache_path: ${cache_path}"
-ls ${cache_path}
+CADDY_URL="https://caddyserver.com/download/build?os=linux&arch=amd64"
+CADDY_PKG="$CACHE_DIR/caddy.tar.gz"
+CADDY_PATH="$TMP_PATH/caddy"
 
-output_section "tmp_path: ${tmp_path}"
-ls ${tmp_path}
+if [ -f $CADDY_PKG ]; then
+  echo "-----> Using wkhtmltopdf Debian package from cache"
+else
+  echo "-----> Downloading wkhtmltopdf Debian package"
+  curl -fsSL "$CADDY_URL" -o "$CADDY_PKG"
+fi
 
-load_config
-
-clean_cache
-
-download_caddy
-install_caddy
+echo "-----> Unpacking Debian package"
+tar -zxvf "$CADDY_PKG" -C "$CADDY_PATH" "$caddy_bin"
+chmod +x "$CADDY_PATH/$caddy_bin"
+mv "$CADDY_PATH/$caddy_bin" $BIN_PATH/
+rm -rf $CADDY_PATH
