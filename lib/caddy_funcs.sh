@@ -6,7 +6,7 @@ function download_caddy() {
   caddy_package_url="https://caddyserver.com/download/build?os=linux&arch=amd64&features=${caddy_features}"
 
   # If a previous download does not exist, then always re-download
-  if [ ! -f ${cache_path}/$(caddy_tarball) ]; then
+  if [ ! -f ${tmp_path}/$(caddy_tarball) ]; then
     clean_caddy_downloads
 
     # Set this so elixir will be force-rebuilt
@@ -14,14 +14,13 @@ function download_caddy() {
 
     output_section "Fetching Caddy"
     curl -L "${caddy_package_url}" -o ${tmp_path}/$(caddy_tarball) || exit 1
-    cp ${tmp_path}/$(caddy_tarball) ${cache_path}/$(caddy_tarball)
   else
     output_section "Using cached Caddy"
   fi
 }
 
 function clean_caddy_downloads() {
-  rm -rf ${cache_path}/${caddy_tarball}
+  rm -rf ${tmp_path}/${caddy_tarball}
 }
 
 function install_caddy() {
@@ -32,7 +31,7 @@ function install_caddy() {
   output_section "Installing Caddy $(caddy_changed)"
 
   mkdir ${bin_path}
-  tar zxf ${cache_path}/$(caddy_tarball) -C ${build_path} --strip-components=1
+  tar zxf ${tmp_path}/$(caddy_tarball) -C ${build_path} --strip-components=1
   chmod +x ${build_path}/${caddy_bin}
   mv ${build_path}/${caddy_bin} ${bin_path}
   rm -rf ${build_path}
