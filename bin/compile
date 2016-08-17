@@ -14,8 +14,13 @@ caddy_bin="caddy"
 CADDY_URL="https://caddyserver.com/download/build?os=linux&arch=amd64"
 CADDY_PKG="$CACHE_DIR/caddy.tar.gz"
 CADDY_PATH="$TMP_PATH/caddy"
+EXE_PATH="$BIN_PATH/caddy"
 
 mkdir -p $TMP_PATH $CADDY_PATH $BIN_PATH
+
+if [ -f $EXE_PATH ]; then
+  $EXE_PATH --version
+fi
 
 if [ -f $CADDY_PKG ]; then
   echo "-----> Using Caddy package from cache"
@@ -25,7 +30,10 @@ else
 fi
 
 echo "-----> Unpacking Caddy package"
-tar -zxvf "$CADDY_PKG" -C "$CADDY_PATH" "$caddy_bin"
+tar -zxf "$CADDY_PKG" -C "$CADDY_PATH" "$caddy_bin"
 chmod +x "$CADDY_PATH/$caddy_bin"
 mv "$CADDY_PATH/$caddy_bin" $BIN_PATH/
 rm -rf $CADDY_PATH
+
+version=($EXE_PATH --version)
+echo "-----> Running Caddy $version"
